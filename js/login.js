@@ -17,7 +17,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const password = document.getElementById('password').value;
         const messageDiv = document.getElementById('message');
 
-        fetch('http://localhost:8080/api/auth/login', {
+        //http://localhost:8080/api/auth/login
+        fetch('https://megaback-production.up.railway.app/api/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
