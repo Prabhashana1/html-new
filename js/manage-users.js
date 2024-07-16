@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const userTableBody = document.getElementById('user-table-body');
     console.log(jwtToken);
     // Fetch users from the API
-    fetch('http://localhost:8080/api/admin/get-user', {
+    fetch('https://megaback-production.up.railway.app/api/admin/get-user', {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${jwtToken}`
@@ -81,9 +81,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let apiUrl;
         if (newUser.userRole === "ADMIN") {
-            apiUrl = 'http://localhost:8080/api/admin/create-admin-account';
+            apiUrl = 'https://megaback-production.up.railway.app/api/admin/create-admin-account';
         } else if (newUser.userRole === "EMPLOYEE") {
-            apiUrl = 'http://localhost:8080/api/admin/create-user-account';
+            apiUrl = 'https://megaback-production.up.railway.app/api/admin/create-user-account';
         } else {
             alert('Invalid user role selected.');
             return; // Exit if user role is invalid
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
             password: password
         }
 
-        fetch(`http://localhost:8080/api/admin/reset-password`, {
+        fetch(`https://megaback-production.up.railway.app/api/admin/reset-password`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
         
 
-        fetch(`http://localhost:8080/api/admin/update`, {
+        fetch(`https://megaback-production.up.railway.app/api/admin/update`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function resetPassword(userId) {
     const jwtToken = localStorage.getItem('jwt');
-    fetch(`http://localhost:8080/api/admin/get-user-by-id/${userId}`, {
+    fetch(`https://megaback-production.up.railway.app/api/admin/get-user-by-id/${userId}`, {
         headers: {
             'Authorization': `Bearer ${jwtToken}`
         }
@@ -237,7 +237,7 @@ function resetPassword(userId) {
 
 function editUser(userId) {
     const jwtToken = localStorage.getItem('jwt');
-    fetch(`http://localhost:8080/api/admin/get-user-by-id/${userId}`, {
+    fetch(`https://megaback-production.up.railway.app/api/admin/get-user-by-id/${userId}`, {
         headers: {
             'Authorization': `Bearer ${jwtToken}`
         }
@@ -258,7 +258,7 @@ function editUser(userId) {
 function deleteUser(userId) {
     if (confirm('Are you sure you want to delete this user?')) {
         const jwtToken = localStorage.getItem('jwt');
-        fetch(`http://localhost:8080/api/admin/delete-user/${userId}`, {
+        fetch(`https://megaback-production.up.railway.app/api/admin/delete-user/${userId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${jwtToken}`

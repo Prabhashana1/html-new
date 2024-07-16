@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const jobTableBody = document.getElementById('job-table-body');
 
     // Fetch jobs from the API
-    fetch('http://localhost:8080/api/employee/get-all-job', {
+    fetch('https://megaback-production.up.railway.app/api/employee/get-all-job', {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${jwtToken}`
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
             status: document.getElementById('jobStatus').value,
         };
 
-        fetch('http://localhost:8080/api/employee/save-job', {
+        fetch('https://megaback-production.up.railway.app/api/employee/save-job', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
             status: document.getElementById('editJobStatus').value
         };
 
-        fetch(`http://localhost:8080/api/employee/update`, {
+        fetch(`https://megaback-production.up.railway.app/api/employee/update`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
             status: document.getElementById('stausJobStatus').value
         };
 
-        fetch(`http://localhost:8080/api/employee/job-repair`, {
+        fetch(`https://megaback-production.up.railway.app/api/employee/job-repair`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -136,7 +136,7 @@ function reloadData() {
     const jobTableBody = document.getElementById('job-table-body');
 
     // Fetch jobs from the API
-    fetch('http://localhost:8080/api/employee/get-all-job', {
+    fetch('https://megaback-production.up.railway.app/api/employee/get-all-job', {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${jwtToken}`
@@ -201,7 +201,7 @@ function populateJobTable(jobs) {
 function filterJobsByStatus() {
     const status = document.getElementById('statusFilter').value;
     const jwtToken = localStorage.getItem('jwt'); // Get JWT token from local storage
-    const url = status === 'all' ? 'http://localhost:8080/api/employee/get-all-job' : `http://localhost:8080/api/employee/filter-by-status/${status}`;
+    const url = status === 'all' ? 'https://megaback-production.up.railway.app/api/employee/get-all-job' : `https://megaback-production.up.railway.app/api/employee/filter-by-status/${status}`;
 
     fetch(url, {
         method: 'GET',
@@ -237,15 +237,15 @@ function searchJobs() {
 
     if (searchType === 'id') {
         const searchInputInt = parseInt(searchInput, 10);
-        apiUrl = `http://localhost:8080/api/employee/search/${searchInputInt}`;
+        apiUrl = `https://megaback-production.up.railway.app/api/employee/search/${searchInputInt}`;
     } else if (searchType === 'customerName') {
-        apiUrl = `http://localhost:8080/api/employee/search-by-name/${searchInput}`;
+        apiUrl = `https://megaback-production.up.railway.app/api/employee/search-by-name/${searchInput}`;
     } else if (searchType === 'receivedDate') {
-        apiUrl = `http://localhost:8080/api/employee/search-by-date/${searchInput}`;
+        apiUrl = `https://megaback-production.up.railway.app/api/employee/search-by-date/${searchInput}`;
     } else if (searchType === 'phoneNumber') {
-        apiUrl = `http://localhost:8080/api/employee/search-by-phone-number/${searchInput}`;
+        apiUrl = `https://megaback-production.up.railway.app/api/employee/search-by-phone-number/${searchInput}`;
     } else if (searchType === 'phoneModel') {
-        apiUrl = `http://localhost:8080/api/employee/search-by-phone-model/${searchInput}`;
+        apiUrl = `https://megaback-production.up.railway.app/api/employee/search-by-phone-model/${searchInput}`;
     }
 
     fetch(apiUrl, {
@@ -276,7 +276,7 @@ function searchJobs() {
 
 function editJob(jobId) {
     const jwtToken = localStorage.getItem('jwt');
-    fetch(`http://localhost:8080/api/employee/search/${jobId}`, {
+    fetch(`https://megaback-production.up.railway.app/api/employee/search/${jobId}`, {
         headers: {
             'Authorization': `Bearer ${jwtToken}`
         }
@@ -303,7 +303,7 @@ function editJob(jobId) {
 
 function markAsRepaired(jobId) {
     const jwtToken = localStorage.getItem('jwt');
-    fetch(`http://localhost:8080/api/employee/search/${jobId}`, {
+    fetch(`https://megaback-production.up.railway.app/api/employee/search/${jobId}`, {
         headers: {
             'Authorization': `Bearer ${jwtToken}`
         }
@@ -322,7 +322,7 @@ function markAsRepaired(jobId) {
 
 function pay(jobId){
     const jwtToken = localStorage.getItem('jwt');
-    fetch(`http://localhost:8080/api/employee/search/${jobId}`, {
+    fetch(`https://megaback-production.up.railway.app/api/employee/search/${jobId}`, {
         headers: {
             'Authorization': `Bearer ${jwtToken}`
         }
@@ -356,7 +356,7 @@ function pay(jobId){
 function payJob(jobId) {
     if (confirm('Are you sure you want to pay for this job?')) {
         const jwtToken = localStorage.getItem('jwt');
-        fetch(`http://localhost:8080/api/employee/pay/${jobId}`, {
+        fetch(`https://megaback-production.up.railway.app/api/employee/pay/${jobId}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${jwtToken}`
@@ -384,7 +384,7 @@ function payJob(jobId) {
 function deleteJob(jobId) {
     if (confirm('Are you sure you want to delete this job?')) {
         const jwtToken = localStorage.getItem('jwt'); // Get JWT token from local storage
-        fetch(`http://localhost:8080/api/admin/delete-job/${jobId}`, {
+        fetch(`https://megaback-production.up.railway.app/api/admin/delete-job/${jobId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${jwtToken}`
