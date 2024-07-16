@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users - Mega Supply</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            margin-top: 20px;
+        }
+
+        /*.table thead th {
+            white-space: nowrap;
+        }
+
+        .table tbody td {
+            white-space: nowrap;
+        }*/
+        .table {
+            width: 100%;
+            /* Ensure the table uses full width */
+        }
+
+        .table th,
+        .table td {
+            white-space: nowrap;
+            /* Prevent text from wrapping */
+            text-align: left;
+            /* Align text to the left */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar Placeholder -->
+    <div id="navbar-placeholder"></div>
+
+    <div class="container-fluid" style="margin-top: 60px;">
+        <h2 class="text-center">Manage Users</h2>
+        <button class="btn btn-success mb-3" data-toggle="modal" data-target="#createUserModal">Create New User</button>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Phone Number</th>
+                        <th>ID Number</th>
+                        <th>User Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="user-table-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <!-- Create User Modal -->
+    <div class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="createUserModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createUserModalLabel">Create New User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="create-user-form">
+                        <div class="form-group">
+                            <label for="newUserName">Name</label>
+                            <input type="text" class="form-control" id="newUserName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newUserEmail">Email</label>
+                            <input type="email" class="form-control" id="newUserEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newUserPassword">Password</label>
+                            <input type="password" class="form-control" id="newUserPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newUserConfirmPassword">Confirm Password</label>
+                            <input type="password" class="form-control" id="newUserConfirmPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newUserPhone">Phone Number</label>
+                            <input type="text" class="form-control" id="newUserPhone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newUserIdNumber">ID Number</label>
+                            <input type="text" class="form-control" id="newUserIdNumber" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newUserRole">User Role</label>
+                            <select class="form-control" id="newUserRole" required>
+                                <option value="ADMIN">Admin</option>
+                                <option value="EMPLOYEE">Employee</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create User</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="resetPasswordModel" tabindex="-1" role="dialog"
+        aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resetPasswordModalLabel">Reset User Password</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="reset-password-form">
+                        <input type="hidden" id="resetUserId">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="resetUserEmail">User Email</label>
+                                <input type="text" class="form-control" id="resetUserEmail" readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="resetPassword">New Password</label>
+                                <input type="password" class="form-control" id="resetPassword" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="resetConfirmPassword">Confirm New Password</label>
+                                <input type="password" class="form-control" id="resetConfirmPassword" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <input type="checkbox" id="show-password"> Show Password
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-12 text-center">
+                                <button type="submit" class="btn btn-warning">Reset Password</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+
+
+    <div class="modal fade" id="editUserdModel" tabindex="-1" role="dialog"
+        aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editUserModalLabel">Update User Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="update-user-form">
+                        <input type="hidden" id="userId">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="editName">Name</label>
+                                <input type="text" class="form-control" id="editName" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="editEmail">Email</label>
+                                <input type="text" class="form-control" id="editEmail" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="editPhoneNo">Phone Number</label>
+                                <input type="text" class="form-control" id="editPhoneNo" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="editIdNumber">NIC Number</label>
+                                <input type="text" class="form-control" id="editIdNumber" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-12 text-center">
+                                <button type="submit" class="btn btn-success">Update User Details</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder" style="margin-top: 60px;"></div>
+
+    <script src="load-components.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="./js/manage-users.js"></script>
+</body>
+
+</html>
